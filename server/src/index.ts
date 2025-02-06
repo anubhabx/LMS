@@ -7,11 +7,13 @@ import morgan from "morgan";
 
 // Route imports
 import courseRoutes from "./routes/course.route.ts";
+import { connectToDatabase } from "./database/connect.database.ts";
 
 // Configurations
 dotenv.config();
 
 const isProduction = process.env.NODE_ENV === "production";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!isProduction) {
   console.log("Development environment");
@@ -33,6 +35,7 @@ app.use("/api/courses", courseRoutes);
 const PORT = process.env.PORT || 5000;
 if (!isProduction) {
   app.listen(PORT, () => {
+    connectToDatabase(MONGODB_URI!);
     console.log(`Server running on port ${PORT}`);
   });
 }
