@@ -73,6 +73,10 @@ const courseSchema = new Schema(
       ref: "User",
       required: true,
     },
+    teacherName: {
+      type: String,
+      required: true,
+    },
     courseTitle: {
       type: String,
       required: true,

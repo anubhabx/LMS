@@ -36,13 +36,13 @@ declare global {
   }
 
   interface Course {
-    courseId: string;
+    _id: string;
     teacherId: string;
     teacherName: string;
-    title: string;
-    description?: string;
+    courseTitle: string;
+    courseDescription?: string;
     category: string;
-    image?: string;
+    courseImage?: string;
     price?: number; // Stored in cents (e.g., 4999 for $49.99)
     level: "Beginner" | "Intermediate" | "Advanced";
     status: "Draft" | "Published";

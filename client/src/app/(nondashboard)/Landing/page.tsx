@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useCarousel } from "@/hooks/useCarousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCoursesQuery } from "@/state/api";
+import CourseCardSearch from "@/components/shared/CourseCardSearch";
+import { useRouter } from "next/navigation";
 
 const LoadingSkeleton = () => {
   return (
@@ -37,9 +39,19 @@ const LoadingSkeleton = () => {
 };
 
 const Landing = () => {
+  const router = useRouter();
   const currentImage = useCarousel({ totalImages: 3 });
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
-  console.log("Courses", courses);
+
+  const handleCourseClick = (courseId: string) => {
+    router.push(`/courses/${courseId}`);
+  };
+
+  // console.log("Courses", courses);
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <motion.div
@@ -63,10 +75,10 @@ const Landing = () => {
         }}
       >
         <div className="landing__hero-content">
-          <h1 className="landing__title">Lorem ipsum dolor sit amet.</h1>
+          <h1 className="landing__title">Empower Your Learning Journey</h1>
           <p className="landing__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas non
-            labore.
+            Discover a world of knowledge with our curated courses. Learn, grow,
+            and achieve your goals—one step at a time.
           </p>
 
           <div className="landing__cta">
@@ -100,12 +112,10 @@ const Landing = () => {
         viewport={{ amount: 0.3, once: true }}
         className="landing__featured"
       >
-        <h2 className="landing__featured-title">Lorem ipsum dolor.</h2>
+        <h2 className="landing__featured-title">Explore Our Courses</h2>
         <p className="landing__featured-description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum,
-          accusamus. Repellat est placeat id perferendis optio minus
-          voluptatibus, in veritatis, quos vel et dolores assumenda? Commodi
-          laborum veritatis hic quisquam!
+          Find the perfect course to match your learning goals. From programming
+          to design, we have something for everyone.
         </p>
 
         <div className="landing__tags">
@@ -123,7 +133,23 @@ const Landing = () => {
           ))}
         </div>
 
-        <div className="landing__courses"></div>
+        <div className="landing__courses">
+          {courses &&
+            courses.slice(0, 4).map((course, index) => (
+              <motion.div
+                key={course._id}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ amount: 0.4 }}
+              >
+                <CourseCardSearch
+                  course={course}
+                  onClick={() => handleCourseClick(course._id)}
+                />
+              </motion.div>
+            ))}
+        </div>
       </motion.div>
     </motion.div>
   );

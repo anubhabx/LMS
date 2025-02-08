@@ -2,9 +2,11 @@ import mongoose from "mongoose";
 import Course from "../models/course.model";
 import UserCourseProgress from "../models/userCourseProgress.model";
 import Transaction from "../models/transaction.models";
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({
+  path: "./server/.env",
+});
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -13,6 +15,9 @@ async function populateData() {
 
   const courseId1 = new mongoose.Types.ObjectId();
   const courseId2 = new mongoose.Types.ObjectId();
+  const courseId3 = new mongoose.Types.ObjectId();
+  const courseId4 = new mongoose.Types.ObjectId();
+  const courseId5 = new mongoose.Types.ObjectId();
   const userId1 = new mongoose.Types.ObjectId();
   const userId2 = new mongoose.Types.ObjectId();
 
@@ -20,6 +25,7 @@ async function populateData() {
     {
       _id: courseId1,
       teacherId: new mongoose.Types.ObjectId(),
+      teacherName: "John Doe",
       courseTitle: "Introduction to Programming",
       courseDescription: "Learn the basics of programming.",
       category: "Programming",
@@ -53,6 +59,7 @@ async function populateData() {
     {
       _id: courseId2,
       teacherId: new mongoose.Types.ObjectId(),
+      teacherName: "Jane Smith",
       courseTitle: "Advanced JavaScript",
       courseDescription: "Deep dive into JavaScript.",
       category: "Programming",
@@ -75,6 +82,107 @@ async function populateData() {
               type: "Quiz",
               chapterName: "Closures Quiz",
               chapterContent: "Test your knowledge on closures.",
+              comments: [],
+            },
+          ],
+        },
+      ],
+      enrollments: [],
+    },
+    {
+      _id: courseId3,
+      teacherId: new mongoose.Types.ObjectId(),
+      teacherName: "Alice Johnson",
+      courseTitle: "Machine Learning",
+      courseDescription: "An advanced course on machine learning.",
+      category: "Artificial Intelligence",
+      courseImage: "machine_learning.jpg",
+      price: 99.99,
+      level: "Advanced",
+      status: "Draft",
+      sections: [
+        {
+          sectionTitle: "Machine Learning Basics",
+          sectionDescription: "Learn the basics of machine learning.",
+          chapters: [
+            {
+              type: "Text",
+              chapterName: "Introduction",
+              chapterContent: "Introduction to machine learning.",
+              comments: [],
+            },
+            {
+              type: "Quiz",
+              chapterName: "ML Basics Quiz",
+              chapterContent: "Test your knowledge on machine learning basics.",
+              comments: [],
+            },
+          ],
+        },
+      ],
+      enrollments: [],
+    },
+    {
+      _id: courseId4,
+      teacherId: new mongoose.Types.ObjectId(),
+      teacherName: "Bob Brown",
+      courseTitle: "Web Development with React",
+      courseDescription: "Learn how to build web applications using React.",
+      category: "Web Development",
+      courseImage: "react_web_dev.jpg",
+      price: 69.99,
+      level: "Intermediate",
+      status: "Published",
+      sections: [
+        {
+          sectionTitle: "React Basics",
+          sectionDescription: "Introduction to React.",
+          chapters: [
+            {
+              type: "Text",
+              chapterName: "Welcome",
+              chapterContent: "Welcome to the React course!",
+              comments: [],
+            },
+            {
+              type: "Video",
+              chapterName: "React Components",
+              chapterContent: "Watch this video to learn about React components.",
+              video: "react_components.mp4",
+              comments: [],
+            },
+          ],
+        },
+      ],
+      enrollments: [],
+    },
+    {
+      _id: courseId5,
+      teacherId: new mongoose.Types.ObjectId(),
+      teacherName: "Charlie Davis",
+      courseTitle: "Cybersecurity Fundamentals",
+      courseDescription: "Learn the fundamentals of cybersecurity.",
+      category: "Cybersecurity",
+      courseImage: "cybersecurity_fundamentals.jpg",
+      price: 89.99,
+      level: "Beginner",
+      status: "Draft",
+      sections: [
+        {
+          sectionTitle: "Introduction to Cybersecurity",
+          sectionDescription: "Learn the basics of cybersecurity.",
+          chapters: [
+            {
+              type: "Text",
+              chapterName: "Welcome",
+              chapterContent: "Welcome to the Cybersecurity course!",
+              comments: [],
+            },
+            {
+              type: "Video",
+              chapterName: "Cybersecurity Basics",
+              chapterContent: "Watch this video to learn cybersecurity basics.",
+              video: "cybersecurity_basics.mp4",
               comments: [],
             },
           ],

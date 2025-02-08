@@ -272,7 +272,7 @@ input[type="color"] {
 }
 
 .landing__hero-images {
-  @apply md:basis-1/2 h-full w-full relative overflow-hidden rounded-b-lg md:rounded-r-lg;
+  @apply md:basis-1/2 h-full w-full relative overflow-hidden max-md:rounded-b-lg md:rounded-r-lg;
 }
 
 .landing__hero-image {
