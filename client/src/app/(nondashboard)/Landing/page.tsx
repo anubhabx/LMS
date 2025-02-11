@@ -45,7 +45,7 @@ const Landing = () => {
   const { data: courses, isLoading, isError } = useGetCoursesQuery({});
 
   const handleCourseClick = (courseId: string) => {
-    router.push(`/courses/${courseId}`);
+    router.push(`/search?id=${courseId}`);
   };
 
   // console.log("Courses", courses);

@@ -102,8 +102,8 @@ declare global {
 
   interface Chapter {
     chapterId: string;
-    title: string;
-    content: string;
+    chapterName: string;
+    chapterContent: string;
     video?: string | File;
     freePreview?: boolean;
     type: "Text" | "Quiz" | "Video";
@@ -120,7 +120,7 @@ declare global {
   }
 
   interface Section {
-    sectionId: string;
+    _id: string;
     sectionTitle: string;
     sectionDescription?: string;
     chapters: Chapter[];

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Loading from "@/components/shared/Loading";
@@ -7,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import CourseCardSearch from "@/components/shared/CourseCardSearch";
+import SelectedCourse from "./SelectedCourse";
 
 const Search = () => {
   const searchParams = useSearchParams();
@@ -36,6 +36,10 @@ const Search = () => {
     router.push(`/search?id=${course._id}`);
   };
 
+  const handleEnrollNow = (courseId: string) => {
+    router.push(`/checkout?step=1&id=${courseId}&showSignUp=false`);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -50,7 +54,7 @@ const Search = () => {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="search__course-grid"
+          className="search__courses-grid"
         >
           {courses.map((course) => (
             <CourseCardSearch
@@ -61,6 +65,20 @@ const Search = () => {
             />
           ))}
         </motion.div>
+
+        {selectedCourse && (
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="search__selected-course"
+          >
+            <SelectedCourse
+              course={selectedCourse}
+              handleEnrollNow={handleEnrollNow}
+            />
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );
