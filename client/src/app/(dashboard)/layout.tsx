@@ -1,7 +1,10 @@
 "use client";
 
-import Footer from "@/components/shared/Footer";
+import AppSidebar from "@/components/shared/AppSidebar";
 import Loading from "@/components/shared/Loading";
+import Navbar from "@/components/shared/Navbar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -22,9 +25,16 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="dashboard">
-      <main className="dashboard__body">{children}</main>
-      <Footer />
-    </div>
+    <SidebarProvider>
+      <div className="dashboard">
+        <AppSidebar />
+        <div className="dashboard__content">
+          <div className={cn("dashboard__main")} style={{ height: "100vh" }}>
+            <Navbar isCoursePage={false} />
+            <main className="dashboard__body">{children}</main>
+          </div>
+        </div>
+      </div>
+    </SidebarProvider>
   );
 }
