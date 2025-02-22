@@ -5,7 +5,11 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import { connectToDatabase } from "./database/connect.database";
-import { createClerkClient } from "@clerk/express";
+import {
+  clerkMiddleware,
+  createClerkClient,
+  requireAuth,
+} from "@clerk/express";
 
 // Route imports
 import courseRoutes from "./routes/course.route.ts";
@@ -33,10 +37,11 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(clerkMiddleware());
 
 // Routes
 app.use("/api/courses", courseRoutes);
-app.use("/api/users/clerk", userClerkRoutes);
+app.use("/api/users/clerk", requireAuth(), userClerkRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
