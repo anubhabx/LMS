@@ -19,7 +19,7 @@ import {
 interface FormFieldProps {
   name: string;
   label: string;
-  type?: "text" | "switch" | "select";
+  type?: "text" | "switch" | "select" | "email";
   placeholder?: string;
   options?: { label: string; value: string }[];
   className?: string;
@@ -29,7 +29,7 @@ interface FormFieldProps {
   disabled?: boolean;
 }
 
-const NotificationSettingField: React.FC<FormFieldProps> = ({
+const CustomFormField: React.FC<FormFieldProps> = ({
   name,
   label,
   type = "text",
@@ -133,4 +133,4 @@ const NotificationSettingField: React.FC<FormFieldProps> = ({
   );
 };
 
-export default NotificationSettingField;
+export default CustomFormField;

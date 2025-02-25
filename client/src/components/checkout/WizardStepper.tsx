@@ -34,15 +34,15 @@ const WizardStepper = ({ currentStep }: WizardStepperProps) => {
                 {step === 2 && "Payment"}
                 {step === 3 && "Completion"}
               </p>
-              {index < 2 && (
-                <div
-                  className={cn("wizard-stepper__line", {
-                    "wizard-stepper__line--completed": currentStep > step,
-                    "wizard-stepper__line--current": currentStep <= step,
-                  })}
-                ></div>
-              )}
             </div>
+            {index < 2 && (
+              <div
+                className={cn("wizard-stepper__line", {
+                  "wizard-stepper__line--completed": currentStep > step,
+                  "wizard-stepper__line--incomplete": currentStep <= step,
+                })}
+              ></div>
+            )}
           </React.Fragment>
         ))}
       </div>

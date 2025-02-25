@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "./Header";
 import { Form } from "../ui/form";
-import NotificationSettingField from "./NotificationSettingField";
+import CustomFormField from "./CustomFormField";
 import { Button } from "../ui/button";
 
 const NotificationSettings = ({
@@ -66,22 +66,22 @@ const NotificationSettings = ({
           className="notification-settings__form"
         >
           <div className="notification-settings__fields">
-            <NotificationSettingField
+            <CustomFormField
               name="courseNotifications"
               label="Course Notifications"
               type="switch"
             />
-            <NotificationSettingField
+            <CustomFormField
               name="emailAlerts"
               label="Email Alerts"
               type="switch"
             />
-            <NotificationSettingField
+            <CustomFormField
               name="smsAlerts"
               label="SMS Alerts"
               type="switch"
             />
-            <NotificationSettingField
+            <CustomFormField
               name="notificationFrequency"
               label="Notification Frequency"
               type="select"

@@ -4,7 +4,7 @@ import { Bell, BookOpen } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { SidebarTrigger } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
