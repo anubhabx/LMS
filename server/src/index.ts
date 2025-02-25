@@ -12,8 +12,9 @@ import {
 } from "@clerk/express";
 
 // Route imports
-import courseRoutes from "./routes/course.route.ts";
-import userClerkRoutes from "./routes/userClerk.route.ts";
+import courseRoutes from "./routes/course.routes.ts";
+import userClerkRoutes from "./routes/userClerk.routes.ts";
+import tranactionRoutes from "./routes/transaction.routes.ts";
 
 // Configurations
 dotenv.config();
@@ -42,6 +43,7 @@ app.use(clerkMiddleware());
 // Routes
 app.use("/api/courses", courseRoutes);
 app.use("/api/users/clerk", requireAuth(), userClerkRoutes);
+app.use("/api/transactions", requireAuth(), tranactionRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

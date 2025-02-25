@@ -1151,7 +1151,7 @@ input[type="color"] {
 }
 
 .wizard-stepper__container {
-  @apply w-full flex items-center justify-between mb-2;
+  @apply w-full flex items-start justify-between mb-2;
 }
 
 .wizard-stepper__step {

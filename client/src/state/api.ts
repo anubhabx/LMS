@@ -9,6 +9,7 @@ import {
 import { User } from "@clerk/nextjs/server";
 import { Clerk } from "@clerk/clerk-js";
 import { toast } from "sonner";
+import { number } from "zod";
 
 const customBaseQuery = async (
   args: string | FetchArgs,
@@ -92,8 +93,22 @@ export const api = createApi({
       query: (id) => `courses/${id}`,
       providesTags: (result, error, id) => [{ type: "Courses", id }],
     }),
+    createSripePaymentIntent: builder.mutation<
+      { clientSecret: string },
+      { amount: number }
+    >({
+      query: ({ amount }) => ({
+        url: "/api/transactions/stripe/payment-intent",
+        method: "POST",
+        body: { amount },
+      }),
+    }),
   }),
 });
 
-export const { useUpdateUserMutation, useGetCoursesQuery, useGetCourseQuery } =
-  api;
+export const {
+  useUpdateUserMutation,
+  useGetCoursesQuery,
+  useGetCourseQuery,
+  useCreateSripePaymentIntentMutation,
+} = api;
