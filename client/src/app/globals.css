@@ -422,7 +422,7 @@ input[type="color"] {
 }
 
 .payment__content {
-  @apply flex flex-col gap-4 bg-customgreys-secondarybg px-10 py-10 rounded-lg;
+  @apply flex flex-col gap-4 max-md:mt-10 bg-customgreys-secondarybg px-10 py-10 rounded-lg;
 }
 
 .payment__title {

@@ -10,10 +10,7 @@ export const useCheckoutNavigation = () => {
   const { isLoaded, isSignedIn } = useUser();
 
   const courseId = searchParams.get("id") ?? "";
-  const checkoutStep = parseInt(searchParams.get("step") ?? "1", 10) as
-    | 1
-    | 2
-    | 3;
+  const checkoutStep = parseInt(searchParams.get("step") ?? "1", 10);
 
   const navigateToStep = useCallback(
     (step: number) => {
@@ -21,14 +18,17 @@ export const useCheckoutNavigation = () => {
       const showSignUp = isSignedIn ? "true" : "false";
 
       router.push(
-        `/checkout?step=${newStep}&id=${courseId}&showSignUp=${showSignUp}`
+        `/checkout?step=${newStep}&id=${courseId}&showSignUp=${showSignUp}`,
+        {
+          scroll: false,
+        }
       );
     },
     [courseId, isSignedIn, router]
   );
 
   useEffect(() => {
-    if (!isLoaded && !isSignedIn && checkoutStep > 1) {
+    if (isLoaded && !isSignedIn && checkoutStep > 1) {
       navigateToStep(1);
     }
   }, [isLoaded, isSignedIn, checkoutStep, navigateToStep]);

@@ -6,5 +6,5 @@ export const useCurrentCourse = () => {
   const courseId = searchParams.get("id") ?? "";
   const { data: course, ...rest } = useGetCourseQuery(courseId);
 
-  return { course, ...rest };
+  return { course, courseId: course?._id, ...rest };
 };

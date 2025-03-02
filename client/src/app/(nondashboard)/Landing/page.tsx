@@ -51,7 +51,7 @@ const Landing = () => {
   };
 
   // console.log("Courses", courses);
-  console.log("User", user);
+  // console.log("User", user);
 
   if (isLoading) {
     return <LoadingSkeleton />;

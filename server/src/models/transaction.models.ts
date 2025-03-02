@@ -3,8 +3,11 @@ import mongoose from "mongoose";
 const transactionSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      required: true,
+    },
+    transactionId: {
+      type: String,
       required: true,
     },
     dateTime: {

@@ -4,8 +4,7 @@ const { Schema } = mongoose;
 
 const commentSchema = new Schema({
   userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
   },
   content: {
@@ -56,8 +55,7 @@ const sectionSchema = new Schema({
 
 const enrollmentSchema = new Schema({
   userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
   },
   enrolledOn: {
@@ -69,8 +67,7 @@ const enrollmentSchema = new Schema({
 const courseSchema = new Schema(
   {
     teacherId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
     teacherName: {
