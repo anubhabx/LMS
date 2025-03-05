@@ -143,3 +143,31 @@ export const createTransaction = async (
     });
   }
 };
+
+export const listTransactions = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { userId } = req.query;
+
+  try {
+    const transactions = await Transaction.find({ userId });
+
+    if (!transactions) {
+      res.status(404).json({
+        message: "No transactions found",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message: "Transactions retrieved successfully",
+      data: transactions,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to list transactions",
+      error,
+    });
+  }
+};

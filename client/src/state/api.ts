@@ -110,6 +110,9 @@ export const api = createApi({
         body: transaction,
       }),
     }),
+    getTransactions: builder.query<Transaction[], string>({
+      query: (userId) => `transactions?userId=${userId}`,
+    }),
   }),
 });
 
@@ -119,4 +122,5 @@ export const {
   useGetCourseQuery,
   useCreateSripePaymentIntentMutation,
   useCreateTransactionMutation,
+  useGetTransactionsQuery,
 } = api;
