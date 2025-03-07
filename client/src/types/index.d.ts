@@ -102,8 +102,8 @@ declare global {
 
   interface Chapter {
     chapterId: string;
-    chapterName: string;
-    chapterContent: string;
+    title: string;
+    content: string;
     video?: string | File;
     freePreview?: boolean;
     type: "Text" | "Quiz" | "Video";
@@ -120,7 +120,7 @@ declare global {
   }
 
   interface Section {
-    _id: string;
+    sectionId: string;
     sectionTitle: string;
     sectionDescription?: string;
     chapters: Chapter[];
@@ -156,7 +156,7 @@ declare global {
     rightElement?: ReactNode;
   }
 
-  interface NotificationSettingsProps {
+  interface SharedNotificationSettingsProps {
     title?: string;
     subtitle?: string;
   }

@@ -11,7 +11,7 @@ const CoursePreview = ({ course }: CoursePreviewProps) => {
       <div className="course-preview__container">
         <div className="course-preview__image-container">
           <Image
-            src={`/${course.courseImage}` || "/course-preview-placeholder.png"}
+            src={`${course.courseImage}` || "/course-preview-placeholder.png"}
             alt={course.courseTitle}
             width={640}
             height={300}

@@ -80,7 +80,7 @@ const courseSchema = new Schema(
     },
     courseDescription: {
       type: String,
-      required: true,
+      default: "",
     },
     category: {
       type: String,
@@ -88,7 +88,7 @@ const courseSchema = new Schema(
     },
     courseImage: {
       type: String,
-      required: true,
+      default: "",
     },
     price: {
       type: Number,

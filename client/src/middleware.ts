@@ -1,14 +1,25 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import {
+  clerkClient,
+  clerkMiddleware,
+  createRouteMatcher,
+} from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isStudentRoute = createRouteMatcher(["/user/(.*)"]);
 const isTeacherRoute = createRouteMatcher(["/teacher/(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { sessionClaims } = await auth();
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.redirect("/sign-in");
+  }
+
+  const user = await (await clerkClient()).users.getUser(userId);
+
   const userRole =
-    (sessionClaims?.metadata as { userType: "student" | "teacher" })
-      ?.userType || "student";
+    (user?.publicMetadata?.userType as "student" | "teacher") || "student";
+
+  console.log("User role:", userRole);
 
   if (isStudentRoute(req)) {
     if (userRole !== "student") {

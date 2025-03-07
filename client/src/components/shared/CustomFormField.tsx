@@ -15,17 +15,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { Textarea } from "../ui/textarea";
 
 interface FormFieldProps {
   name: string;
   label: string;
-  type?: "text" | "switch" | "select" | "email";
+  type?: "text" | "switch" | "select" | "email" | "number" | "textarea";
   placeholder?: string;
   options?: { label: string; value: string }[];
   className?: string;
   inputClassName?: string;
   labelClassName?: string;
-  initialValue?: string | boolean;
+  initialValue?: string | boolean | number;
   disabled?: boolean;
 }
 
@@ -47,6 +48,15 @@ const CustomFormField: React.FC<FormFieldProps> = ({
     field: ControllerRenderProps<FieldValues, string>
   ) => {
     switch (type) {
+      case "textarea":
+        return (
+          <Textarea
+            placeholder={placeholder}
+            {...field}
+            rows={3}
+            className={`border-none bg-customgreys-darkGrey p-4 ${inputClassName}`}
+          />
+        );
       case "switch":
         return (
           <div className="flex items-center space-x-2">
@@ -89,6 +99,17 @@ const CustomFormField: React.FC<FormFieldProps> = ({
             </SelectContent>
           </Select>
         );
+      case "number":
+        return (
+          <Input
+            type="number"
+            placeholder={placeholder}
+            {...field}
+            className={`border-none bg-customgreys-darkGrey p-4 ${inputClassName}`}
+            disabled={disabled}
+          />
+        );
+
       default:
         return (
           <Input
