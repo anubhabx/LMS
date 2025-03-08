@@ -47,12 +47,15 @@ const CustomFormField: React.FC<FormFieldProps> = ({
   const renderFormControl = (
     field: ControllerRenderProps<FieldValues, string>
   ) => {
+    const value = field.value !== undefined ? field.value : initialValue || "";
+
     switch (type) {
       case "textarea":
         return (
           <Textarea
             placeholder={placeholder}
             {...field}
+            value={value}
             rows={3}
             className={`border-none bg-customgreys-darkGrey p-4 ${inputClassName}`}
           />
@@ -105,17 +108,18 @@ const CustomFormField: React.FC<FormFieldProps> = ({
             type="number"
             placeholder={placeholder}
             {...field}
+            value={value}
             className={`border-none bg-customgreys-darkGrey p-4 ${inputClassName}`}
             disabled={disabled}
           />
         );
-
       default:
         return (
           <Input
             type={type}
             placeholder={placeholder}
             {...field}
+            value={value}
             className={cn(
               "border-none bg-customgreys-primarybg p-4",
               inputClassName
@@ -133,11 +137,10 @@ const CustomFormField: React.FC<FormFieldProps> = ({
       defaultValue={initialValue}
       render={({ field }) => (
         <FormItem
-          className={`${type !== "switch" && "rounded-md"} relative ${className}
-        `}
+          className={`${type !== "switch" && "rounded-md"} relative ${className}`}
         >
           {type !== "switch" && (
-            <div className="flex hustify-between items-center">
+            <div className="flex justify-between items-center">
               <FormLabel className={`${labelClassName}`}>{label}</FormLabel>
             </div>
           )}

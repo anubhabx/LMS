@@ -13,8 +13,8 @@ export type CourseFormData = z.infer<typeof courseSchema>;
 
 // Chapter Schemas
 export const chapterSchema = z.object({
-  title: z.string().min(2, "Title must be at least 2 characters"),
-  content: z.string().min(10, "Content must be at least 10 characters"),
+  chapterName: z.string().min(2, "Title must be at least 2 characters"),
+  chapterContent: z.string().min(10, "Content must be at least 10 characters"),
   video: z.union([z.string(), z.instanceof(File)]).optional(),
 });
 
@@ -22,8 +22,10 @@ export type ChapterFormData = z.infer<typeof chapterSchema>;
 
 // Section Schemas
 export const sectionSchema = z.object({
-  title: z.string().min(2, "Title must be at least 2 characters"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
+  sectionTitle: z.string().min(2, "Title must be at least 2 characters"),
+  sectionDescription: z
+    .string()
+    .min(10, "Description must be at least 10 characters"),
 });
 
 export type SectionFormData = z.infer<typeof sectionSchema>;

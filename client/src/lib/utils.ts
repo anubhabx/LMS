@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import * as z from "zod";
@@ -292,9 +293,12 @@ export const createCourseFormData = (
   data: CourseFormData,
   sections: Section[]
 ): FormData => {
+  console.log("Data received:", data);
+  console.log("Sections received:", sections);
+
   const formData = new FormData();
-  formData.append("title", data.courseTitle);
-  formData.append("description", data.courseDescription);
+  formData.append("courseTitle", data.courseTitle);
+  formData.append("courseDescription", data.courseDescription);
   formData.append("category", data.courseCategory);
   formData.append("price", data.coursePrice.toString());
   formData.append("status", data.courseStatus ? "Published" : "Draft");
@@ -307,7 +311,14 @@ export const createCourseFormData = (
     })),
   }));
 
+  console.log("Sections with videos:", sectionsWithVideos);
+
   formData.append("sections", JSON.stringify(sectionsWithVideos));
+
+  // Log the formData entries
+  for (const [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
 
   return formData;
 };
