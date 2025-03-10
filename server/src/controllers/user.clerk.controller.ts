@@ -8,7 +8,7 @@ export const updateUser = async (
   const { userId } = req.params;
   const userData = req.body;
 
-  // console.log("User data: ", userData);
+  // //   console.log("User data: ", userData);
 
   try {
     const user = await clerkClient.users.updateUserMetadata(userId, {

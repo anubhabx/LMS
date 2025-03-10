@@ -50,8 +50,8 @@ const Landing = () => {
     router.push(`/search?id=${courseId}`);
   };
 
-  // console.log("Courses", courses);
-  // console.log("User", user);
+  // //   console.log("Courses", courses);
+  // //   console.log("User", user);
 
   if (isLoading) {
     return <LoadingSkeleton />;

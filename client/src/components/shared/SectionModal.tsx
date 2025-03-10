@@ -8,7 +8,6 @@ import { X } from "lucide-react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { v4 as uuidv4 } from "uuid";
 import CustomFormField from "./CustomFormField";
 import CustomModal from "./CustomModal";
 
@@ -49,7 +48,6 @@ const SectionModal = () => {
 
   const onSubmit = (data: SectionFormData) => {
     const newSection: Section = {
-      sectionId: section?.sectionId || uuidv4(),
       sectionTitle: data.sectionTitle,
       sectionDescription: data.sectionDescription,
       chapters: section?.chapters || [],

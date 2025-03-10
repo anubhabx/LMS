@@ -51,7 +51,7 @@ export default function DroppableComponent() {
             {sections.map((section: Section, sectionIndex: number) => (
               <Draggable
                 key={sectionIndex}
-                draggableId={section.sectionId}
+                draggableId={sectionIndex.toString()}
                 index={sectionIndex}
               >
                 {(draggableProvider) => (
@@ -75,7 +75,7 @@ export default function DroppableComponent() {
                         handleChapterDragEnd(result, sectionIndex)
                       }
                     >
-                      <Droppable droppableId={`chapters-${section.sectionId}`}>
+                      <Droppable droppableId={`chapters-${section._id}`}>
                         {(droppableProvider) => (
                           <div
                             ref={droppableProvider.innerRef}
@@ -85,7 +85,7 @@ export default function DroppableComponent() {
                               (chapter: Chapter, chapterIndex: number) => (
                                 <Draggable
                                   key={chapterIndex}
-                                  draggableId={chapter.chapterId}
+                                  draggableId={chapterIndex.toString()}
                                   index={chapterIndex}
                                 >
                                   {(draggableProvider) => (

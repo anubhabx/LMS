@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const chapterProgressSchema = new mongoose.Schema({
-  chapterId: {
+  _id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Chapter",
     required: true,
@@ -13,7 +13,7 @@ const chapterProgressSchema = new mongoose.Schema({
 });
 
 const sectionProgressSchema = new mongoose.Schema({
-  sectionId: {
+  _id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Section",
     required: true,

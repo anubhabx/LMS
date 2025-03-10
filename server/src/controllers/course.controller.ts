@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Course from "../models/course.model.ts";
 import { getAuth } from "@clerk/express";
 import { v4 as uuidv4 } from "uuid";
+import mongoose from "mongoose";
 
 export const listCourses = async (
   req: Request,
@@ -116,7 +117,6 @@ export const updateCourse = async (req: Request, res: Response) => {
         });
         return;
       }
-
       updatedData.price = updatedData.price * 100;
     }
 
@@ -128,10 +128,8 @@ export const updateCourse = async (req: Request, res: Response) => {
 
       updatedData.sections = sectionData.map((section: any) => ({
         ...section,
-        sectionId: section.sectionId || uuidv4(),
         chapters: section.chapters.map((chapter: any) => ({
           ...chapter,
-          chapterId: chapter.chapterId || uuidv4(),
         })),
       }));
     }

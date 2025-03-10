@@ -60,14 +60,12 @@ const CourseEditor = () => {
     try {
       const formData = createCourseFormData(data, sections);
 
-      console.log(formData);
+      //   console.log(formData);
 
-      const updatedCourse = await updateCourse({
+      await updateCourse({
         courseId: id,
         formData,
       }).unwrap();
-
-      console.log(updatedCourse);
 
       refetch();
     } catch (error) {

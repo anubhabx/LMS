@@ -29,7 +29,7 @@ const TeacherBillingPage = () => {
       skip: !isLoaded || !user,
     });
 
-  console.log("transactions", transactions);
+  //   console.log("transactions", transactions);
 
   const filteredTransactions =
     (Array.isArray(transactions) &&

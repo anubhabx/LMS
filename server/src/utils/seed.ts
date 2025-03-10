@@ -200,14 +200,14 @@ async function populateData() {
       overallProgress: 50,
       sections: [
         {
-          sectionId: new mongoose.Types.ObjectId(),
+          _id: new mongoose.Types.ObjectId(),
           chapterProgress: [
             {
-              chapterId: new mongoose.Types.ObjectId(),
+              _id: new mongoose.Types.ObjectId(),
               isCompleted: true,
             },
             {
-              chapterId: new mongoose.Types.ObjectId(),
+              _id: new mongoose.Types.ObjectId(),
               isCompleted: false,
             },
           ],
@@ -222,14 +222,14 @@ async function populateData() {
       overallProgress: 75,
       sections: [
         {
-          sectionId: new mongoose.Types.ObjectId(),
+          _id: new mongoose.Types.ObjectId(),
           chapterProgress: [
             {
-              chapterId: new mongoose.Types.ObjectId(),
+              _id: new mongoose.Types.ObjectId(),
               isCompleted: true,
             },
             {
-              chapterId: new mongoose.Types.ObjectId(),
+              _id: new mongoose.Types.ObjectId(),
               isCompleted: true,
             },
           ],
@@ -260,7 +260,7 @@ async function populateData() {
   await UserCourseProgress.insertMany(userCourseProgresses);
   await Transaction.insertMany(transactions);
 
-  console.log("Data populated successfully!");
+  //   console.log("Data populated successfully!");
 
   await mongoose.disconnect();
 }

@@ -7,8 +7,10 @@ import { dark } from "@clerk/themes";
 export default function SignInComponent() {
   const { user } = useUser();
   const searchParams = useSearchParams();
-  const isCheckoutPage = searchParams.get("showSignUp") !== "null";
+  const isCheckoutPage = searchParams.get("showSignUp") !== null;
   const courseId = searchParams.get("id");
+
+  //   console.log("isCheckoutPage", isCheckoutPage);
 
   const signUpUrl = isCheckoutPage
     ? `/checkout?step=1&id=${courseId}&showSignUp=true`

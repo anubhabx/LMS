@@ -101,7 +101,7 @@ declare global {
   }
 
   interface Chapter {
-    chapterId: string;
+    _id?: string;
     chapterName: string;
     chapterContent: string;
     video?: string | File;
@@ -110,17 +110,17 @@ declare global {
   }
 
   interface ChapterProgress {
-    chapterId: string;
+    _id?: string;
     completed: boolean;
   }
 
   interface SectionProgress {
-    sectionId: string;
+    _id?: string;
     chapters: ChapterProgress[];
   }
 
   interface Section {
-    sectionId: string;
+    _id?: string;
     sectionTitle: string;
     sectionDescription?: string;
     chapters: Chapter[];

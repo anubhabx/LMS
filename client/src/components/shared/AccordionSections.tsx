@@ -8,7 +8,7 @@ import {
 import { FileText } from "lucide-react";
 
 const AccordionSections = ({ sections }: AccordionSectionsProps) => {
-  console.log(sections);
+  //   console.log(sections);
 
   return (
     <Accordion type="multiple" className="w-full">

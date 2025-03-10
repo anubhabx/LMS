@@ -10,16 +10,15 @@ const isTeacherRoute = createRouteMatcher(["/teacher/(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
+
   if (!userId) {
-    return NextResponse.redirect("/sign-in");
+    return;
   }
 
   const user = await (await clerkClient()).users.getUser(userId);
 
   const userRole =
     (user?.publicMetadata?.userType as "student" | "teacher") || "student";
-
-  console.log("User role:", userRole);
 
   if (isStudentRoute(req)) {
     if (userRole !== "student") {

@@ -37,9 +37,9 @@ const PaymentPageContent = () => {
         ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
         : window.location.origin;
 
-    console.log("Base URL:", baseUrl);
-    console.log("Return URL:", `${baseUrl}/checkout?step=3&id=${courseId}`);
-    console.log("Course ID:", courseId);
+    //   console.log("Base URL:", baseUrl);
+    //   console.log("Return URL:", `${baseUrl}/checkout?step=3&id=${courseId}`);
+    //   console.log("Course ID:", courseId);
 
     const result = await stripe.confirmPayment({
       elements,
@@ -49,7 +49,7 @@ const PaymentPageContent = () => {
       redirect: "if_required",
     });
 
-    console.log("Stripe result:", result);
+    //   console.log("Stripe result:", result);
 
     if (result.error) {
       toast.error(result.error.message);

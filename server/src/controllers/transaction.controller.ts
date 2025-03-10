@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import Course from "../models/course.model";
 import Transaction from "../models/transaction.models";
 import UserCourseProgress from "../models/userCourseProgress.model";
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -113,9 +114,9 @@ export const createTransaction = async (
       enrollmentDate: new Date().toISOString(),
       overallProgress: 0,
       sections: course.sections.map((section) => ({
-        sectionId: section._id,
+        _id: new mongoose.Types.ObjectId(),
         chapterProgress: section.chapters.map((chapter) => ({
-          chapterId: chapter._id,
+          _id: new mongoose.Types.ObjectId(),
           isCompleted: false,
         })),
       })),
@@ -126,7 +127,14 @@ export const createTransaction = async (
 
     await Course.updateOne(
       { _id: courseId },
-      { $push: { enrolledUsers: userId } }
+      {
+        $push: {
+          enrollments: {
+            userId,
+            enrolledAt: new Date().toISOString(),
+          },
+        },
+      }
     );
 
     res.status(201).json({

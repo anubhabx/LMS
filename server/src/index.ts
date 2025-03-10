@@ -14,7 +14,8 @@ import {
 // Route imports
 import courseRoutes from "./routes/course.routes.ts";
 import userClerkRoutes from "./routes/userClerk.routes.ts";
-import tranactionRoutes from "./routes/transaction.routes.ts";
+import transactionRoutes from "./routes/transaction.routes.ts";
+import userCourseProgressRoutes from "./routes/user.course.progress.routes.ts";
 
 // Configurations
 dotenv.config();
@@ -23,7 +24,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!isProduction) {
-  console.log("Development environment");
+  //   console.log("Development environment");
 }
 
 export const clerkClient = createClerkClient({
@@ -43,13 +44,14 @@ app.use(clerkMiddleware());
 // Routes
 app.use("/api/courses", courseRoutes);
 app.use("/api/users/clerk", requireAuth(), userClerkRoutes);
-app.use("/api/transactions", requireAuth(), tranactionRoutes);
+app.use("/api/transactions", requireAuth(), transactionRoutes);
+app.use("/api/users", requireAuth(), userCourseProgressRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;
 if (!isProduction) {
   app.listen(PORT, () => {
     connectToDatabase(MONGODB_URI!);
-    console.log(`Server running on port ${PORT}`);
+    //   console.log(`Server running on port ${PORT}`);
   });
 }

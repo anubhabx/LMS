@@ -16,7 +16,6 @@ import { X } from "lucide-react";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { v4 as uuidv4 } from "uuid";
 import CustomFormField from "./CustomFormField";
 import CustomModal from "./CustomModal";
 
@@ -28,6 +27,9 @@ const ChapterModal = () => {
     selectedChapterIndex,
     sections,
   } = useAppSelector((state) => state.global.courseEditor);
+
+  //   console.log("selectedSectionIndex", selectedSectionIndex);
+  //   console.log("selectedChapterIndex", selectedChapterIndex);
 
   const chapter: Chapter | undefined =
     selectedSectionIndex !== null && selectedChapterIndex !== null
@@ -67,7 +69,6 @@ const ChapterModal = () => {
     if (selectedSectionIndex === null) return;
 
     const newChapter: Chapter = {
-      chapterId: chapter?.chapterId || uuidv4(),
       chapterName: data.chapterName,
       chapterContent: data.chapterContent,
       type: data.video ? "Video" : "Text",
@@ -113,13 +114,13 @@ const ChapterModal = () => {
             className="chapter-modal__form"
           >
             <CustomFormField
-              name="title"
+              name="chapterName"
               label="Chapter Title"
               placeholder="Write chapter title here"
             />
 
             <CustomFormField
-              name="content"
+              name="chapterContent"
               label="Chapter Content"
               type="textarea"
               placeholder="Write chapter content here"

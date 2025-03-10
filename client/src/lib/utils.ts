@@ -293,8 +293,8 @@ export const createCourseFormData = (
   data: CourseFormData,
   sections: Section[]
 ): FormData => {
-  console.log("Data received:", data);
-  console.log("Sections received:", sections);
+  //   console.log("Data received:", data);
+  //   console.log("Sections received:", sections);
 
   const formData = new FormData();
   formData.append("courseTitle", data.courseTitle);
@@ -311,13 +311,13 @@ export const createCourseFormData = (
     })),
   }));
 
-  console.log("Sections with videos:", sectionsWithVideos);
+  //   console.log("Sections with videos:", sectionsWithVideos);
 
   formData.append("sections", JSON.stringify(sectionsWithVideos));
 
   // Log the formData entries
   for (const [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
+    //   console.log(`${key}: ${value}`);
   }
 
   return formData;
@@ -343,13 +343,13 @@ export const uploadAllVideos = async (
           const updatedChapter = await uploadVideo(
             chapter,
             courseId,
-            updatedSections[i].sectionId,
+            updatedSections[i]._id,
             getUploadVideoUrl
           );
           updatedSections[i].chapters[j] = updatedChapter;
         } catch (error) {
           console.error(
-            `Failed to upload video for chapter ${chapter.chapterId}:`,
+            `Failed to upload video for chapter ${chapter._id}:`,
             error
           );
         }
@@ -363,7 +363,7 @@ export const uploadAllVideos = async (
 async function uploadVideo(
   chapter: Chapter,
   courseId: string,
-  sectionId: string,
+  _id: string,
   getUploadVideoUrl: any
 ) {
   const file = chapter.video as File;
@@ -371,8 +371,8 @@ async function uploadVideo(
   try {
     const { uploadUrl, videoUrl } = await getUploadVideoUrl({
       courseId,
-      sectionId,
-      chapterId: chapter.chapterId,
+      _id,
+      _id: chapter._id,
       fileName: file.name,
       fileType: file.type,
     }).unwrap();
@@ -385,13 +385,13 @@ async function uploadVideo(
       body: file,
     });
     toast.success(
-      `Video uploaded successfully for chapter ${chapter.chapterId}`
+      `Video uploaded successfully for chapter ${chapter._id}`
     );
 
     return { ...chapter, video: videoUrl };
   } catch (error) {
     console.error(
-      `Failed to upload video for chapter ${chapter.chapterId}:`,
+      `Failed to upload video for chapter ${chapter._id}:`,
       error
     );
     throw error;
