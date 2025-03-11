@@ -20,12 +20,19 @@ const SectionModal = () => {
   const section =
     selectedSectionIndex !== null ? sections[selectedSectionIndex] : null;
 
+  // console.log("Modal state:", {
+  //   isSectionModalOpen,
+  //   selectedSectionIndex,
+  //   section,
+  // });
+
   const methods = useForm<SectionFormData>({
     resolver: zodResolver(sectionSchema),
     defaultValues: {
       sectionTitle: "",
       sectionDescription: "",
     },
+    mode: "onSubmit",
   });
 
   useEffect(() => {
@@ -46,35 +53,54 @@ const SectionModal = () => {
     dispatch(closeSectionModal());
   };
 
+  // const handleFormSubmit = async (e: React.FormEvent) => {
+  //   console.log("Form state on submit attempt:", methods.formState);
+  //   console.log("Form errors:", methods.formState.errors);
+  // };
+
   const onSubmit = (data: SectionFormData) => {
-    const newSection: Section = {
-      sectionTitle: data.sectionTitle,
-      sectionDescription: data.sectionDescription,
-      chapters: section?.chapters || [],
-    };
+    // console.log("Form submission triggered with data:", data);
 
-    if (selectedSectionIndex === null) {
-      dispatch(addSection(newSection));
-    } else {
-      dispatch(
-        editSection({
-          index: selectedSectionIndex,
-          section: newSection,
-        })
+    try {
+      const newSection: Section = {
+        // _id: section?._id || `temp-section-${Date.now()}`, // Ensure ID exists
+        sectionTitle: data.sectionTitle,
+        sectionDescription: data.sectionDescription,
+        chapters: section?.chapters || [],
+      };
+
+      // console.log("New section object:", newSection);
+
+      if (selectedSectionIndex === null) {
+        // console.log("Dispatching addSection");
+        dispatch(addSection(newSection));
+      } else {
+        // console.log(`Dispatching editSection for index ${selectedSectionIndex}`);
+        dispatch(
+          editSection({
+            index: selectedSectionIndex,
+            section: newSection,
+          })
+        );
+      }
+
+      toast.success(
+        `Section ${selectedSectionIndex === null ? "added" : "updated"} successfully but you need to save the course to apply the changes`
       );
+      onClose();
+    } catch (error) {
+      console.error("Error in section submission:", error);
+      toast.error("Failed to save section. Please try again.");
     }
-
-    toast.success(
-      `Section added/updated successfully but you need to save the course to apply the changes`
-    );
-    onClose();
   };
 
   return (
     <CustomModal isOpen={isSectionModalOpen} onClose={onClose}>
       <div className="section-modal">
         <div className="section-modal__header">
-          <h2 className="section-modal__title">Add/Edit Section</h2>
+          <h2 className="section-modal__title">
+            {selectedSectionIndex === null ? "Add Section" : "Edit Section"}
+          </h2>
           <button onClick={onClose} className="section-modal__close">
             <X className="w-6 h-6" />
           </button>
@@ -84,6 +110,7 @@ const SectionModal = () => {
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
             className="section-modal__form"
+            // onClick={(e) => console.log("Form clicked", e.target)}
           >
             <CustomFormField
               name="sectionTitle"
@@ -102,7 +129,11 @@ const SectionModal = () => {
               <Button type="button" variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" className="bg-primary-700">
+              <Button
+                type="submit"
+                className="bg-primary-700"
+                onClick={methods.handleSubmit(onSubmit)}
+              >
                 Save
               </Button>
             </div>

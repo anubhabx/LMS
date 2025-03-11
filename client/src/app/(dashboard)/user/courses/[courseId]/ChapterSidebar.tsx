@@ -174,7 +174,7 @@ const ProgressVisuals = ({
             )?.completed;
             return (
               <div
-                key={chapter.chapterId}
+                key={chapter._id}
                 className={cn(
                   "chapters-sidebar__progress-bar",
                   isCompleted && "chapters-sidebar__progress-bar--completed"
@@ -217,10 +217,10 @@ const ChaptersList = ({
     <ul className="chapters-sidebar__chapters">
       {section.chapters.map((chapter: any, index: number) => (
         <Chapter
-          key={chapter.chapterId}
+          key={chapter._id}
           chapter={chapter}
           index={index}
-          sectionId={section.sectionId}
+          sectionId={section._id}
           sectionProgress={sectionProgress}
           chapterId={chapterId}
           courseId={courseId}
@@ -298,7 +298,7 @@ const Chapter = ({
           "chapters-sidebar__chapter-title--current": isCurrentChapter,
         })}
       >
-        {chapter.title}
+        {chapter.chapterName}
       </span>
       {chapter.type === "Text" && (
         <FileText className="chapters-sidebar__text-icon" />

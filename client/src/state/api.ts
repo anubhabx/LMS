@@ -131,6 +131,22 @@ export const api = createApi({
       }),
       invalidatesTags: ["Courses"],
     }),
+    getUploadVideoUrl: builder.mutation<
+      { uploadUrl: string; videoUrl: string },
+      {
+        courseId: string;
+        sectionId: string;
+        chapterId: string;
+        fileName: string;
+        fileType: string;
+      }
+    >({
+      query: ({ courseId, sectionId, chapterId, fileName, fileType }) => ({
+        url: `courses/${courseId}/sections/${sectionId}/chapters/${chapterId}/get-upload-url`,
+        method: "POST",
+        body: { fileName, fileType },
+      }),
+    }),
 
     // Transaction endpoints
     createSripePaymentIntent: builder.mutation<
@@ -220,6 +236,7 @@ export const {
   useCreateCourseMutation,
   useUpdateCourseMutation,
   useDeleteCourseMutation,
+  useGetUploadVideoUrlMutation,
   useGetUserEnrolledCoursesQuery,
   useGetUserCourseProgressQuery,
   useUpdateUserCourseProgressMutation,

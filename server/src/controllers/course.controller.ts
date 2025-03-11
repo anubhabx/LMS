@@ -3,6 +3,9 @@ import Course from "../models/course.model.ts";
 import { getAuth } from "@clerk/express";
 import { v4 as uuidv4 } from "uuid";
 import mongoose from "mongoose";
+import AWS from "aws-sdk";
+
+const s3 = new AWS.S3();
 
 export const listCourses = async (
   req: Request,
@@ -120,6 +123,16 @@ export const updateCourse = async (req: Request, res: Response) => {
       updatedData.price = updatedData.price * 100;
     }
 
+    if (course.enrollments) {
+      updatedData.enrollments = course.enrollments.map((enrollment: any) => {
+        // console.log("Enrollment:", enrollment);
+        return {
+          userId: enrollment.userId,
+          enrolledOn: enrollment.enrolledOn || new Date().toISOString(),
+        };
+      });
+    }
+
     if (updatedData.sections) {
       const sectionData =
         typeof updatedData.sections === "string"
@@ -180,5 +193,46 @@ export const deleteCourse = async (req: Request, res: Response) => {
     res
       .status(500)
       .json({ success: false, message: "Error deleting course", error });
+  }
+};
+
+export const getUploadVideoUrl = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { fileName, fileType } = req.body;
+
+  if (!fileName || !fileType) {
+    res.status(400).json({
+      success: false,
+      message: "File name and type are required",
+    });
+    return;
+  }
+
+  try {
+    const uniqueId = uuidv4();
+    const s3Key = `videos/${uniqueId}/${fileName}`;
+
+    const s3Params = {
+      Bucket: process.env.AWS_BUCKET_NAME || "",
+      Key: s3Key,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: "public-read",
+    };
+
+    const uploadUrl = await s3.getSignedUrlPromise("putObject", s3Params);
+    const videoUrl = `${process.env.AWS_CLOUDFRONT_URL}/videos/${uniqueId}/${fileName}`;
+
+    res.status(200).json({
+      success: true,
+      message: "Upload URL generated successfully",
+      data: { uploadUrl, videoUrl },
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, message: "Error getting upload URL", error });
   }
 };
